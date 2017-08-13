@@ -44,6 +44,14 @@ async def timeUp( channel ):
 @client.event
 async def on_message( message ):
     if ( message.content == bot_prefix + "go" ):
+        master = False
+        for role in message.author.roles:
+            if role.name == "Master":
+                master = True
+                break
+        if master == False:
+            await client.send_message( message.channel, "No, no, no, " + message.author.mention )
+            return
         server = message.server
         channels = server.channels
         members = server.members
